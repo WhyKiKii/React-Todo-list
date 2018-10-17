@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
+import Palette from './components/Palette';
 
+const colors = ['#343a40', 'f03e3e', '12b886', '228ae6'];
 
 class App extends Component {
   id = 3;
@@ -70,13 +72,14 @@ class App extends Component {
   }
 
   render() {
-    const { input, todos } = this.state;
+    const { input, todos, color } = this.state;
     const { // 비구조화 할당(this 생략 가능)
       handleChange,
       handleCreate,
       handleKeyPress,
       handleToggle,
-      handleRemove
+      handleRemove,
+      handleSelectColor
     } = this;
 
     return (
@@ -86,8 +89,12 @@ class App extends Component {
           onKeyPress = {handleKeyPress}
           onChange = {handleChange}
           onCreate = {handleCreate}
+          color={color}
         />
       )}>
+        Palette ={(
+          <Palette colors={colors} selected={color} onSelect={handleSelectColor}/>
+        )}
         <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}/>
       </TodoListTemplate>
     );
